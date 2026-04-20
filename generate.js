@@ -11,13 +11,24 @@ async function fetchSheet(sheetName) {
   const m = txt.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
   if (!m) return [];
   const table = JSON.parse(m[1]).table;
-  if (!table || !table.rows || !table.cols) return [];
+  if (!table || !table.rows) return [];
 
-  const headers = table.cols.map(c => (c.label || '').trim());
-  return table.rows.map(row => {
+  // Coba header dari cols.label dulu, fallback ke rows[0]
+  let headers = table.cols ? table.cols.map(c => (c.label || '').trim()) : [];
+  let dataRows = table.rows;
+
+  // Kalau semua header kosong, pakai baris pertama sebagai header
+  if (headers.every(h => !h)) {
+    if (!dataRows.length) return [];
+    headers = dataRows[0].c.map(c => c ? String(c.v || '').trim() : '');
+    dataRows = dataRows.slice(1);
+  }
+
+  return dataRows.map(row => {
     const obj = {};
     headers.forEach((h, i) => {
-      obj[h] = row.c[i] ? String(row.c[i].v || '').trim() : '';
+      if (!h) return;
+      obj[h] = row.c && row.c[i] ? String(row.c[i].v || '').trim() : '';
     });
     return obj;
   }).filter(r => r.slug && r.slug.trim());
