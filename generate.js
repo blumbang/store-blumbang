@@ -96,6 +96,7 @@ function buildHTML(produk) {
 <title>Store · Blumbang — Kaos Sablon Manual & Batik dari Klaten</title>
 <meta name="description" content="Produk Blumbang — kaos sablon manual, kaos fusion batik, dan batik tulis dari Jeto, Klaten, Jawa Tengah. Setiap produk punya cerita.">
 <link rel="canonical" href="https://store.blumbang.id">
+<meta name="google-site-verification" content="ZRnMHNQ6xEXIUTJQppUtz51l7S5aujSHtW8RyoDnruU">
 <meta property="og:title" content="Store · Blumbang">
 <meta property="og:description" content="Kaos sablon manual & fusion batik dari Jeto, Klaten.">
 <meta property="og:url" content="https://store.blumbang.id">
